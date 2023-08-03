@@ -584,8 +584,8 @@ prompt_perl() {
 
 # Go
 prompt_go() {
-  setopt extended_glob
-  if $(noglob find . -name *.go -maxdepth 1 | wc -l > 0); then
+  filecount=`noglob ls -1 *.go 2>/dev/null | wc -l`
+  if [ $filecount != 0 ]; then
     if command -v go >/dev/null 2>&1; then
       prompt_segment $BULLETTRAIN_GO_BG $BULLETTRAIN_GO_FG $BULLETTRAIN_GO_PREFIX" $(go version | grep --colour=never -oE '[[:digit:]].[[:digit:]]+(.[[:digit:]]+)?')"
     fi
@@ -606,7 +606,10 @@ prompt_virtualenv() {
 prompt_nvm() {
   local nvm_prompt
   nvm_prompt="$(echo $NVM_BIN | awk -F'/' '{print $7}')"
-  prompt_segment $BULLETTRAIN_NVM_BG $BULLETTRAIN_NVM_FG $BULLETTRAIN_NVM_PREFIX$nvm_prompt
+  filecount=`noglob ls -1 *.js 2>/dev/null | wc -l`
+  if [ $filecount != 0 ]; then
+    prompt_segment $BULLETTRAIN_NVM_BG $BULLETTRAIN_NVM_FG $BULLETTRAIN_NVM_PREFIX$nvm_prompt
+  fi
 }
 
 #AWS Profile
