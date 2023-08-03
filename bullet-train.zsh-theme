@@ -585,7 +585,7 @@ prompt_perl() {
 # Go
 prompt_go() {
   setopt extended_glob
-  if [[ find . -name "*.go" -maxdepth 1 | wc -l  > 0 ]]; then
+  if $(noglob find . -name *.go -maxdepth 1 | wc -l > 0); then
     if command -v go >/dev/null 2>&1; then
       prompt_segment $BULLETTRAIN_GO_BG $BULLETTRAIN_GO_FG $BULLETTRAIN_GO_PREFIX" $(go version | grep --colour=never -oE '[[:digit:]].[[:digit:]]+(.[[:digit:]]+)?')"
     fi
