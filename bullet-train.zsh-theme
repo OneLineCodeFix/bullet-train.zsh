@@ -584,7 +584,7 @@ prompt_perl() {
 
 # Go
 prompt_go() {
-  filecount=`find . -name "*.go" -maxdepth 2 | wc -l | awk '{$1=$1};1'`
+  filecount=`find . -name "*.go" -maxdepth 2 2>/dev/null | wc -l | awk '{$1=$1};1'`
   if [ $filecount != "0" ]; then
     if command -v go >/dev/null 2>&1; then
       prompt_segment $BULLETTRAIN_GO_BG $BULLETTRAIN_GO_FG $BULLETTRAIN_GO_PREFIX" $(go version | grep --colour=never -oE '[[:digit:]].[[:digit:]]+(.[[:digit:]]+)?')"
@@ -606,7 +606,7 @@ prompt_virtualenv() {
 prompt_nvm() {
   local nvm_prompt
   nvm_prompt="$(echo $NVM_BIN | awk -F'/' '{print $7}')"
-  filecount=`find . -name "*.js" -maxdepth 2 | wc -l | awk '{$1=$1};1'`
+  filecount=`find . -name "*.js" -maxdepth 2 2>/dev/null | wc -l | awk '{$1=$1};1'`
   if [ $filecount != "0" ]; then
     prompt_segment $BULLETTRAIN_NVM_BG $BULLETTRAIN_NVM_FG $BULLETTRAIN_NVM_PREFIX$nvm_prompt
   fi
